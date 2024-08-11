@@ -1,0 +1,145 @@
+*{
+   margin: 0;
+   padding: 0;
+    
+}
+.welcome{
+height: 700px;
+width: 100%;
+display: flex;
+background-color: rgb(43, 75, 75);
+justify-content: center;
+align-items:center;
+box-sizing: border-box;
+}
+
+.welcome button{
+    font-size: larger;
+    padding: 5px;
+    border-radius: 10px;
+    width: 200px;
+}
+.welcome h2{
+    font-size: 36px;
+    margin: 5px 50px 120px ;
+    padding: 50px;
+}
+
+.welcome div{
+    padding: 20px;
+    background-color:rgb(179, 166, 192);
+    border: 10px solid red;
+    border-style: inset;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#gameBox{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr; 
+    height: 700px;
+    padding: 70px;
+    position: relative;
+    margin-left: 70px;
+}
+#button{
+    border-radius: 5px;
+    padding: 5px;
+    width: 70px;
+    height: 50px;
+    align-self: center;
+}
+
+/* #row_1{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    border-bottom: 10px solid gray;
+}
+#row_2{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+#row_3{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+#row_4{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+#score{
+    display: flex;
+    gap: 20px;  
+}*/
+.leftBorder{
+    border-left: 3px solid gray;
+} 
+.buttonBorder{
+    border-bottom: 3px solid gray;
+}
+#row_1_col2{
+    font-size: 100px;
+    text-align: center;
+    /* margin-top: 40px; */
+    padding: 20px;
+}
+
+#row_1_col3{
+    font-size: 100px;
+    text-align: center;
+    padding: 20px;
+    
+    /* margin-top: 40px; */
+}
+#row_1_col4{
+    font-size: 100px;
+    text-align: center;
+    /* margin-top: 40px; */
+    padding: 20px;
+
+}
+#row_2_col2{
+    font-size: 100px;
+    text-align: center;
+    padding: 20px;
+    /* margin-top: 40px; */
+}
+#row_2_col3{
+    font-size: 100px;
+    text-align: center;
+    /* margin-top: 40px; */
+    padding: 20px;
+
+}
+#row_2_col4{
+    font-size: 100px;
+    text-align: center;
+    padding: 20px;
+    /* margin-top: 40px; */
+}
+#row_3_col2{
+    font-size: 100px;
+    text-align: center;
+    /* margin-top: 40px; */
+    padding: 20px;
+
+}
+#row_3_col3{
+    font-size: 100px;
+    text-align: center;
+    /* margin-top: 40px; */
+    padding: 20px;
+
+}
+#row_3_col4{
+    font-size: 100px;
+    text-align: center;
+    padding: 20px;
+ 
+    /* margin-top: 40px; */
+}
