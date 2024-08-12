@@ -1,77 +1,301 @@
 //=============================//
 // console.log('hi');
 
-// const row1_col_2 = document.querySelector("#row_1_col2");
-// const row1_col_3 = document.querySelector("#row_1_col3");
-// const row1_col_4 = document.querySelector("#row_1_col4");
-// const row2_col_2 = document.querySelector("#row_2_col2");
-// const row2_col_3 = document.querySelector("#row_2_col3");
-// const row2_col_4 = document.querySelector("#row_2_col4");
-// const row3_col_2 = document.querySelector("#row_3_col2");
-// const row3_col_3 = document.querySelector("#row_3_col3");
-// const row3_col_4 = document.querySelector("#row_3_col4");
-
-// const blocks = [
-//   [row1_col_2, row1_col_3, row1_col_4],
-//   [row2_col_2, row2_col_3, row2_col_4],
-//   [row3_col_2, row3_col_3, row3_col_4],
-// ];
 
 const blocks = [[], [], []];
 const divs = [[], [], [], []];
 
 const gameBox = document.querySelector("#gameBox");
 for (let i = 0; i < 4; i++) {
-    for (let j = 0; j < 4; j++) {
-        const newDIv = document.createElement("div");
-        newDIv.id = `row${i}_col${j}`;
-        divs[j] = newDIv;
-        gameBox.append(divs[j]);
-        if (i < 3 && j > 0) {
-            blocks[i].push(newDIv);
-        }
+  for (let j = 0; j < 4; j++) {
+    const newDIv = document.createElement("div");
+    newDIv.id = `row${i}_col${j}`;
+    divs[j] = newDIv;
+    gameBox.append(divs[j]);
+    if (i < 3 && j > 0) {
+      blocks[i].push(newDIv);
     }
+  }
 }
 
 const player_1 = { logo: "X" };
 const player_2 = { logo: "O" };
 let turn = true;
 const players = [];
-const vertical = []
+const vertical_1 = [];
+const vertical_2 = [];
+const vertical_3 = [];
+const horizontal_1 = [];
+const horizontal_2 = [];
+const horizontal_3 = [];
+const diagonal_1 = [];
+const diagonal_2 = [];
 const render = (e) => {
-    players.unshift(e.target.className);
-    blocks.forEach((element, index) => {
-        element.forEach((elem, i) => {
-            elem.addEventListener("click", () => {
-                if (turn && players[0] === "button_1") {
-                    elem.innerHTML = player_1.logo;
-                    turn = !turn;
-                    if (i === 0) {
-                        if (elem.innerHTML === "X") {
-                            vertical.push(elem.innerHTML)
-                            console.log(vertical, i);
-                            if (vertical[0] === vertical[1] && vertical[0] === vertical[2]) {
-                                return prompt(`player X win`)
-                            }
-                        }
-                        if (elem.innerHTML === "O") {
-                            return prompt(`player O win`)
-                        }
-                    }
-                } else if (players[0] === "button_2" && !turn) {
-                    // console.log(players[0]);
-                    elem.innerHTML = player_2.logo;
-                    turn = !turn;
-                }
-             
+  players.unshift(e.target.className);
+  blocks.forEach((element, index) => {
+    element.forEach((elem, i) => {
+      elem.addEventListener("click", () => {
+        if (players[0] === "button_1" && elem.innerText === "") {
+          players[0] = "button_2";
+          elem.innerHTML = player_1.logo;
+          //   turn = !turn;
+          if (i === 0) {
+            if (elem.innerHTML === "X") {
+              vertical_1.push(elem.innerHTML);
+              //   console.log(vertical_1, i);
+              if (
+                vertical_1[0] === vertical_1[1] &&
+                vertical_1[0] === vertical_1[2]
+              ) {
+                return prompt(`player 1 won`);
+              }
+            }
+          }
+          if (i === 1) {
+            if (elem.innerHTML === "X") {
+              vertical_2.push(elem.innerHTML);
+              //   console.log(vertical_2, i);
+              if (
+                vertical_2[0] === vertical_2[1] &&
+                vertical_2[0] === vertical_2[2]
+              ) {
+                return prompt(`player 1 won`);
+              }
+            }
+          }
+          if (i === 2) {
+            if (elem.innerHTML === "X") {
+              vertical_3.push(elem.innerHTML);
+              //   console.log(vertical_3, i);
+              if (
+                vertical_3[0] === vertical_3[1] &&
+                vertical_3[0] === vertical_3[2]
+              ) {
+                return prompt(`player 1 won`);
+              }
+            }
+          }
+          if (index === 0) {
+            if (elem.innerHTML === "X") {
+              horizontal_1.push(elem.innerHTML);
+              //   console.log(horizontal_1, index);
+              if (
+                horizontal_1[0] === horizontal_1[1] &&
+                horizontal_1[0] === horizontal_1[2]
+              ) {
+                return prompt(`player 1 won`);
+              }
+            }
+          }
+          if (index === 1) {
+            if (elem.innerHTML === "X") {
+              horizontal_2.push(elem.innerHTML);
+              //   console.log(horizontal_2, index);
+              if (
+                horizontal_2[0] === horizontal_2[1] &&
+                horizontal_2[0] === horizontal_2[2]
+              ) {
+                return prompt(`player 1 won`);
+              }
+            }
+          }
+          if (index === 2) {
+            if (elem.innerHTML === "X") {
+              horizontal_3.push(elem.innerHTML);
+              //   console.log(horizontal_3, index);
+              if (
+                horizontal_3[0] === horizontal_3[1] &&
+                horizontal_3[0] === horizontal_3[2]
+              ) {
+                return prompt(`player 1 won`);
+              }
+            }
+          }
+          if (index === 0 && i === 0) {
+            diagonal_1.push(elem.innerHTML);
+            if (
+              diagonal_1[0] === diagonal_1[1] &&
+              diagonal_1[0] === diagonal_1[2]
+            ) {
+              return prompt(`player 1 won`);
+            }
+            // console.log(diagonal);
+          }
 
+          if (index === 1 && i === 1) {
+            diagonal_1.push(elem.innerHTML);
+            console.log(diagonal_1);
+            if (
+              diagonal_1[0] === diagonal_1[1] &&
+              diagonal_1[0] === diagonal_1[2]
+            ) {
+              return prompt(`player 1 won`);
+            }
+          }
+          if (index === 2 && i === 2) {
+            diagonal_1.push(elem.innerHTML);
+            console.log(diagonal_1);
+            if (
+              diagonal_1[0] === diagonal_1[1] &&
+              diagonal_1[0] === diagonal_1[2]
+            ) {
+              return prompt(`player 1 won`);
+            }
+          }
 
-
-            });
-        });
+          if (index === 0 && i === 2) {
+            diagonal_1.push(elem.innerHTML);
+            console.log(diagonal_1);
+            if (
+              diagonal_1[0] === diagonal_1[1] &&
+              diagonal_1[0] === diagonal_1[2]
+            ) {
+              return prompt(`player 1 won`);
+            }
+          }
+          if (index === 2 && i === 0) {
+            diagonal_1.push(elem.innerHTML);
+            console.log(diagonal_1);
+            if (
+              diagonal_1[0] === diagonal_1[1] &&
+              diagonal_1[0] === diagonal_1[2]
+            ) {
+              return prompt(`player 1 won`);
+            }
+          }
+        } else if (players[0] === "button_2" && elem.innerText === "") {
+          //   console.log(players[0]);
+          players[0] = "button_1";
+          elem.innerHTML = player_2.logo;
+          //   turn = !turn;
+          if (i === 0) {
+            if (elem.innerHTML === "O") {
+              vertical_1.push(elem.innerHTML);
+              console.log(vertical_1, i);
+              if (
+                vertical_1[0] === vertical_1[1] &&
+                vertical_1[0] === vertical_1[2]
+              ) {
+                setTimeout(() => {
+                  prompt(`Player 2 won`);
+                }, 700);
+              }
+            }
+          }
+          if (i === 1) {
+            if (elem.innerHTML === "O") {
+              vertical_2.push(elem.innerHTML);
+              //   console.log(vertical_2, i);
+              if (
+                vertical_2[0] === vertical_2[1] &&
+                vertical_2[0] === vertical_2[2]
+              ) {
+                return prompt(`player 2 won`);
+              }
+            }
+          }
+          if (i === 2) {
+            if (elem.innerHTML === "O") {
+              vertical_3.push(elem.innerHTML);
+              //   console.log(vertical_3, i);
+              if (
+                vertical_3[0] === vertical_3[1] &&
+                vertical_3[0] === vertical_3[2]
+              ) {
+                return prompt(`player 2 won`);
+              }
+            }
+          }
+          if (index === 0) {
+            if (elem.innerHTML === "O") {
+              horizontal_1.push(elem.innerHTML);
+              //   console.log(horizontal_1, index);
+              if (
+                horizontal_1[0] === horizontal_1[1] &&
+                horizontal_1[0] === horizontal_1[2]
+              ) {
+                return prompt(`player 2 won`);
+              }
+            }
+          }
+          if (index === 1) {
+            if (elem.innerHTML === "O") {
+              horizontal_2.push(elem.innerHTML);
+              console.log(horizontal_2, index);
+              if (
+                horizontal_2[0] === horizontal_2[1] &&
+                horizontal_2[0] === horizontal_2[2]
+              ) {
+                return prompt(`player 2 won`);
+              }
+            }
+          }
+          if (index === 2) {
+            if (elem.innerHTML === "O") {
+              horizontal_3.push(elem.innerHTML);
+              console.log(horizontal_3, index);
+              if (
+                horizontal_3[0] === horizontal_3[1] &&
+                horizontal_3[0] === horizontal_3[2]
+              ) {
+                return prompt(`player 2 won`);
+              }
+            }
+          }
+          if (index === 0 && i === 0) {
+            diagonal_2.push(elem.innerHTML);
+            if (
+              diagonal_2[0] === diagonal_2[1] &&
+              diagonal_2[0] === diagonal_2[2]
+            ) {
+              return prompt(`player 2 won`);
+            }
+          }
+          if (index === 1 && i === 1) {
+            diagonal_2.push(elem.innerHTML);
+            if (
+              diagonal_2[0] === diagonal_2[1] &&
+              diagonal_2[0] === diagonal_2[2]
+            ) {
+              return prompt(`player 2 won`);
+            }
+          }
+          if (index === 2 && i === 2) {
+            diagonal_2.push(elem.innerHTML);
+            if (
+              diagonal_2[0] === diagonal_2[1] &&
+              diagonal_2[0] === diagonal_2[2]
+            ) {
+              return prompt(`player 2 won`);
+            }
+          }
+          if (index === 0 && i === 2) {
+            diagonal_2.push(elem.innerHTML);
+            if (
+              diagonal_2[0] === diagonal_2[1] &&
+              diagonal_2[0] === diagonal_2[2]
+            ) {
+              return prompt(`player 2 won`);
+            }
+          }
+          if (index === 2 && i === 0) {
+            diagonal_2.push(elem.innerHTML);
+            if (
+              diagonal_2[0] === diagonal_2[1] &&
+              diagonal_2[0] === diagonal_2[2]
+            ) {
+              return prompt(`player 2 won`);
+            }
+          }
+        }
+      });
     });
+  });
 };
-
+/* 
+turn &&
+&& !turn
+*/
 // render();
 //creating buttons
 const button_1 = document.querySelector("#row3_col0");
@@ -91,35 +315,3 @@ playerTwoButton.addEventListener("click", render);
 
 button_1.append(playerOneButton);
 button_2.append(playerTwoButton);
-// console.log(e);
-/*   if (players[0] == "button_1") {
-                    console.log("x first");
-                    // firstPlayer = player_1
-                    player_1.turn = true
-                    player_2.turn = false
-
-                    elem.innerHTML = player_1.logo
-
-                }
-                if (players[0] == "button_2") {
-                    console.log("o first");
-                    // firstPlayer = player_2
-                    player_2.turn = true
-                    player_1.turn = false
-                    elem.innerHTML = player_2.logo
-
-                }
-
-                if (player_1.turn) {
-                    elem.innerHTML = player_1.logo
-                    player_1.turn = !player_1.turn
-                    player_2.turn = !player_2.turn
-
-                }
-                if(player_2.turn) {
-                    elem.innerHTML = player_2.logo
-                    player_2.turn = !player_2.turn
-                    player_1.turn = !player_1.turn
-
-
-                } */
