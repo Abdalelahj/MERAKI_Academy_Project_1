@@ -82,64 +82,74 @@ box-sizing: border-box;
 .buttonBorder{
     border-bottom: 3px solid gray;
 }
-#row_1_col2{
+#row0_col1{
     font-size: 100px;
     text-align: center;
     /* margin-top: 40px; */
     padding: 20px;
-}
-
-#row_1_col3{
-    font-size: 100px;
-    text-align: center;
-    padding: 20px;
-    
-    /* margin-top: 40px; */
-}
-#row_1_col4{
-    font-size: 100px;
-    text-align: center;
-    /* margin-top: 40px; */
-    padding: 20px;
+    border-bottom: 3px solid gray;
 
 }
-#row_2_col2{
+
+#row0_col2{
     font-size: 100px;
     text-align: center;
     padding: 20px;
-    /* margin-top: 40px; */
+    border-left: 3px solid gray;
+    border-bottom: 3px solid gray;
 }
-#row_2_col3{
+#row0_col3{
     font-size: 100px;
     text-align: center;
     /* margin-top: 40px; */
+    padding: 20px;
+    border-left: 3px solid gray;
+    border-bottom: 3px solid gray;
+
+}
+#row1_col1{
+    font-size: 100px;
+    text-align: center;
+    padding: 20px;
+    border-bottom: 3px solid gray;
+}
+#row1_col2{
+    font-size: 100px;
+    text-align: center;
+    /* margin-top: 40px; */
+    padding: 20px;
+    border-left: 3px solid gray;
+    border-bottom: 3px solid gray;
+
+}
+#row1_col3{
+    font-size: 100px;
+    text-align: center;
+    padding: 20px;
+    border-left: 3px solid gray;
+    border-bottom: 3px solid gray;
+}
+#row2_col1{
+    font-size: 100px;
+    text-align: center;
     padding: 20px;
 
 }
-#row_2_col4{
+#row2_col2{
     font-size: 100px;
     text-align: center;
     padding: 20px;
-    /* margin-top: 40px; */
-}
-#row_3_col2{
-    font-size: 100px;
-    text-align: center;
-    /* margin-top: 40px; */
-    padding: 20px;
+    border-left: 3px solid gray;
 
 }
-#row_3_col3{
+#row2_col3{
     font-size: 100px;
     text-align: center;
-    /* margin-top: 40px; */
     padding: 20px;
+    border-left: 3px solid gray;
 
 }
-#row_3_col4{
-    font-size: 100px;
-    text-align: center;
-    padding: 20px;
- 
-    /* margin-top: 40px; */
+#row3_col3 , #row3_col0{
+    align-self: flex-end;
+    text-align: end;
 }
