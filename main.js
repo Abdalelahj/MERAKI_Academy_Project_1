@@ -1,5 +1,5 @@
-//=============================//
-// console.log('hi');
+//=============================================================//
+
 const body = document.querySelector("body");
 const start_button = document.querySelector("#start");
 const overRelay = document.querySelector("#overlay")
@@ -12,12 +12,18 @@ const player_1 = { logo: "X" };
 const player_2 = { logo: "O" };
 let turn = true;
 
-// const diagonal_2 = [];
 
 
-const blocks = [[], [], []];
+let blocks = [[], [], []];
 const divs = [[], [], [], []];
 
+
+const divTheme=(e ,elem)=>{
+elem.style.color="#C197D2"
+elem.style.border="outset"
+elem.style.background="rgb(0,0,0,0.8)";
+
+}
 
 const WinnerScrn = (message) => {
   console.log("winner" ,message);
@@ -38,30 +44,27 @@ const WinnerScrn = (message) => {
   win.append(text);
 
   playAgain.addEventListener("click", () => {
-    
-    // location.reload();
-    // document.querySelector("#overlay").style.display = "none";
-    // document.querySelector('#gameBox').style.display ="block";
     game()
   });
 };
-const check =(elem,arr,i)=>{
+const check =(elem,arr)=>{
+
   arr.push(elem.innerHTML);
   console.log(arr);
+
   if (
     arr[0] === arr[1] &&
     arr[0] === arr[2]
   ) {
     if (elem.innerHTML === "X"){
-      return WinnerScrn("player 1 win")
+      return WinnerScrn("player 1")
     }else{
-      return WinnerScrn("player 2 win")
+      return WinnerScrn("player 2")
 
     }
 }
 }
 const render = (e) => {
-
   const players = [];
   const vertical_1 = [];
   const vertical_2 = [];
@@ -72,12 +75,14 @@ const render = (e) => {
   const diagonal_1 = [];
   const diagonal_1_1 = [];
 
-  console.log(vertical_1);
+
   // players.push(e.target.innerText)
-  players.push(e.target.className);
+  players.unshift(e.target.className);
   blocks.forEach((element, index) => {
     element.forEach((elem, i) => {
       elem.addEventListener("click", () => {
+        divTheme(e,elem);
+
         if(!elem.innerHTML){
 
           if(players[0]==="button_2"){
@@ -89,6 +94,7 @@ const render = (e) => {
           }
           
           if (i === 0 ) {
+            console.log("i =",i);
             check(elem,vertical_1)
           }
           if (i === 1) {
@@ -98,6 +104,8 @@ const render = (e) => {
             check(elem,vertical_3)
           }
           if (index === 0) {
+            console.log(blocks);
+            console.log("index =",index);
             check(elem,horizontal_1)
           }
           if (index === 1) {
@@ -108,6 +116,8 @@ const render = (e) => {
 
           }
           if ((index === 0 && i === 0) ||(index === 1 && i === 1) || (index === 2 && i === 2) ) {
+            console.log("i =",i  , " index= ",index );
+
             check(elem,diagonal_1)
 
           }
@@ -119,7 +129,7 @@ const render = (e) => {
 
         }
 
-
+        
         
       });
 
@@ -135,26 +145,25 @@ const game= () =>{
   overRelay.style.display = "none";
   gameBox.style.display = "block";
   winDiv.style.display = "none";
-  // console.log("nodes",gameBox.childNodes);
-  if(gameBox.childNodes[1]){
-    gameBox.childNodes[1].remove();
+
+  if(gameBox.childNodes[0]){
+    gameBox.childNodes[0].remove();
+    blocks=[[],[],[]]
   }
   const XODiv = document.createElement('div');
   XODiv.id ="XODiv"
   gameBox.append(XODiv)
   for (let i = 0; i < 4; i++) {
-    console.log("i",i);
     for (let j = 0; j < 4; j++) {
       const newDIv = document.createElement("div");
       newDIv.id = `row${i}_col${j}`;
       divs[j] = newDIv;
       XODiv.append(divs[j]);
       if (i < 3 && j > 0) {
-        blocks[i].push(newDIv);
+        blocks[i].push(divs[j]);
       }
     }
   }
- console.log(blocks);
 
   const button_1 = document.querySelector("#row3_col0");
   const button_2 = document.querySelector("#row3_col3");
@@ -179,10 +188,3 @@ const game= () =>{
 
 
 start_button.addEventListener("click",game);
-/* 
-turn &&
-&& !turn
-*/
-// render();
-//creating buttons
-
