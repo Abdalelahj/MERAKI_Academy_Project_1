@@ -2,6 +2,34 @@
 // console.log('hi');
 
 
+
+
+const start_button = document.querySelector("#start")
+
+start_button.addEventListener('click', ()=>{
+   document.querySelector("#overlay").style.display="none"
+
+})
+// const welcoming = document.querySelector("#overlay")
+// welcoming.addEventListener("click",()=>{
+//     welcoming.style.display='block';
+// })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const blocks = [[], [], []];
 const divs = [[], [], [], []];
 
@@ -29,12 +57,18 @@ const horizontal_1 = [];
 const horizontal_2 = [];
 const horizontal_3 = [];
 const diagonal_1 = [];
+const diagonal_1_1 = [];
 const diagonal_2 = [];
 const render = (e) => {
-  players.unshift(e.target.className);
-  blocks.forEach((element, index) => {
-    element.forEach((elem, i) => {
+    players.unshift(e.target.className);
+    blocks.forEach((element, index) => {
+        element.forEach((elem, i) => {
+
+     
       elem.addEventListener("click", () => {
+        if (elem.innerHTML !== "") {
+            return prompt(" Tie game");
+          }
         if (players[0] === "button_1" && elem.innerText === "") {
           players[0] = "button_2";
           elem.innerHTML = player_1.logo;
@@ -117,11 +151,10 @@ const render = (e) => {
               diagonal_1[0] === diagonal_1[1] &&
               diagonal_1[0] === diagonal_1[2]
             ) {
+              console.log(diagonal_1);
               return prompt(`player 1 won`);
             }
-            // console.log(diagonal);
           }
-
           if (index === 1 && i === 1) {
             diagonal_1.push(elem.innerHTML);
             console.log(diagonal_1);
@@ -129,9 +162,11 @@ const render = (e) => {
               diagonal_1[0] === diagonal_1[1] &&
               diagonal_1[0] === diagonal_1[2]
             ) {
+              console.log(diagonal_1);
               return prompt(`player 1 won`);
             }
           }
+
           if (index === 2 && i === 2) {
             diagonal_1.push(elem.innerHTML);
             console.log(diagonal_1);
@@ -139,28 +174,43 @@ const render = (e) => {
               diagonal_1[0] === diagonal_1[1] &&
               diagonal_1[0] === diagonal_1[2]
             ) {
+              console.log(diagonal_1);
               return prompt(`player 1 won`);
             }
           }
 
           if (index === 0 && i === 2) {
-            diagonal_1.push(elem.innerHTML);
-            console.log(diagonal_1);
+            diagonal_1_1.push(elem.innerHTML);
+            console.log(diagonal_1_1);
             if (
-              diagonal_1[0] === diagonal_1[1] &&
-              diagonal_1[0] === diagonal_1[2]
+              diagonal_1_1[0] === diagonal_1_1[1] &&
+              diagonal_1_1[1] === diagonal_1_1[2]
             ) {
-              return prompt(`player 1 won`);
+              console.log(diagonal_1_1);
+              prompt(`player 1 won`);
+            }
+          }
+
+          if (index === 1 && i === 1) {
+            diagonal_1_1.push(elem.innerHTML);
+            console.log(diagonal_1_1);
+            if (
+              diagonal_1_1[0] === diagonal_1_1[1] &&
+              diagonal_1_1[1] === diagonal_1_1[2]
+            ) {
+              console.log(diagonal_1_1);
+              prompt(`player 1 won`);
             }
           }
           if (index === 2 && i === 0) {
-            diagonal_1.push(elem.innerHTML);
-            console.log(diagonal_1);
+            diagonal_1_1.push(elem.innerHTML);
+            console.log(diagonal_1_1);
             if (
-              diagonal_1[0] === diagonal_1[1] &&
-              diagonal_1[0] === diagonal_1[2]
+              diagonal_1_1[0] === diagonal_1_1[1] &&
+              diagonal_1_1[1] === diagonal_1_1[2]
             ) {
-              return prompt(`player 1 won`);
+              console.log(diagonal_1_1);
+              prompt(`player 1 won`);
             }
           }
         } else if (players[0] === "button_2" && elem.innerText === "") {
@@ -243,46 +293,55 @@ const render = (e) => {
             }
           }
           if (index === 0 && i === 0) {
-            diagonal_2.push(elem.innerHTML);
+            diagonal_1.push(elem.innerHTML);
             if (
-              diagonal_2[0] === diagonal_2[1] &&
-              diagonal_2[0] === diagonal_2[2]
+              diagonal_1[0] === diagonal_1[1] &&
+              diagonal_1[0] === diagonal_1[2]
             ) {
               return prompt(`player 2 won`);
             }
           }
           if (index === 1 && i === 1) {
-            diagonal_2.push(elem.innerHTML);
+            diagonal_1.push(elem.innerHTML);
             if (
-              diagonal_2[0] === diagonal_2[1] &&
-              diagonal_2[0] === diagonal_2[2]
+              diagonal_1[0] === diagonal_1[1] &&
+              diagonal_1[0] === diagonal_1[2]
             ) {
               return prompt(`player 2 won`);
             }
           }
           if (index === 2 && i === 2) {
-            diagonal_2.push(elem.innerHTML);
+            diagonal_1.push(elem.innerHTML);
             if (
-              diagonal_2[0] === diagonal_2[1] &&
-              diagonal_2[0] === diagonal_2[2]
+              diagonal_1[0] === diagonal_1[1] &&
+              diagonal_1[0] === diagonal_1[2]
             ) {
               return prompt(`player 2 won`);
             }
           }
           if (index === 0 && i === 2) {
-            diagonal_2.push(elem.innerHTML);
+            diagonal_1_1.push(elem.innerHTML);
             if (
-              diagonal_2[0] === diagonal_2[1] &&
-              diagonal_2[0] === diagonal_2[2]
+              diagonal_1_1[0] === diagonal_1_1[1] &&
+              diagonal_1_1[0] === diagonal_1_1[2]
+            ) {
+              return prompt(`player 2 won`);
+            }
+          }
+          if (index === 1 && i === 1) {
+            diagonal_1_1.push(elem.innerHTML);
+            if (
+              diagonal_1_1[0] === diagonal_1_1[1] &&
+              diagonal_1_1[0] === diagonal_1_1[2]
             ) {
               return prompt(`player 2 won`);
             }
           }
           if (index === 2 && i === 0) {
-            diagonal_2.push(elem.innerHTML);
+            diagonal_1_1.push(elem.innerHTML);
             if (
-              diagonal_2[0] === diagonal_2[1] &&
-              diagonal_2[0] === diagonal_2[2]
+              diagonal_1_1[0] === diagonal_1_1[1] &&
+              diagonal_1_1[0] === diagonal_1_1[2]
             ) {
               return prompt(`player 2 won`);
             }
@@ -292,6 +351,7 @@ const render = (e) => {
     });
   });
 };
+console.log(blocks);
 /* 
 turn &&
 && !turn
@@ -305,13 +365,13 @@ const playerOneButton = document.createElement("button");
 playerOneButton.innerText = "Player 1 X";
 playerOneButton.id = "button";
 playerOneButton.classList.add("button_1");
-playerOneButton.addEventListener("click", render);
+playerOneButton.addEventListener("click", (e)=>render(e));
 
 const playerTwoButton = document.createElement("button");
 playerTwoButton.innerText = "Player 2 O";
 playerTwoButton.id = "button";
 playerTwoButton.classList.add("button_2");
-playerTwoButton.addEventListener("click", render);
+playerTwoButton.addEventListener("click", (e)=>render(e));
 
 button_1.append(playerOneButton);
 button_2.append(playerTwoButton);
