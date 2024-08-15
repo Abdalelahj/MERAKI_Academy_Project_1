@@ -2,70 +2,128 @@
 
 const body = document.querySelector("body");
 const start_button = document.querySelector("#start");
-const overRelay = document.querySelector("#overlay")
-const gameBox = document.querySelector("#gameBox")  
+const overRelay = document.querySelector("#overlay");
+const gameBox = document.querySelector("#gameBox");
 const winDiv = document.querySelector("#winDivOverlay");
-
-
+const timer = document.querySelector("#timer");
+const drawDiv = document.querySelector("#draw");
 
 const player_1 = { logo: "X" };
 const player_2 = { logo: "O" };
 let turn = true;
 
-
-
 let blocks = [[], [], []];
 const divs = [[], [], [], []];
+let order="start" ;
 
+const divTheme = (e, elem) => {
+  elem.style.color = "#C197D2";
+  elem.style.border = "outset";
+  elem.style.background = "rgb(0,0,0,0.8)";
+};
 
-const divTheme=(e ,elem)=>{
-elem.style.color="#C197D2"
-elem.style.border="outset"
-elem.style.background="rgb(0,0,0,0.8)";
+// timerInterval(timer)
 
-}
-
-const WinnerScrn = (message) => {
-  console.log("winner" ,message);
+//timerInterval()
+const drawsScrn = (message) => {
+  console.log("draw", message);
   overRelay.style.display = "none";
   gameBox.style.display = "none";
-  winDiv.style.display = "block"; 
+  drawDiv.style.display = "block";
+  const tie = document.createElement("div");
+  tie.id = "tiePop";
+
+  const text = document.createElement("span");
+  text.innerText = message;
+
+  const playAgain = document.createElement("button");
+  playAgain.id = "playAgainButton";
+  playAgain.innerText = "Play Again";
+
+  drawDiv.append(tie);
+  tie.append(playAgain);
+  tie.append(text);
+
+  playAgain.addEventListener("click", () => {
+    game();
+  });
+};
+
+const WinnerScrn = (message) => {
+  console.log("winner", message);
+  overRelay.style.display = "none";
+  gameBox.style.display = "none";
+  winDiv.style.display = "block";
   const win = document.createElement("div");
   win.id = "winPop";
 
   const text = document.createElement("span");
-  text.innerText = message ;
+  text.innerText = message;
   const playAgain = document.createElement("button");
   playAgain.id = "playAgainButton";
   playAgain.innerText = "Play Again";
- 
+
   winDiv.append(win);
   win.append(playAgain);
   win.append(text);
 
   playAgain.addEventListener("click", () => {
-    game()
+    game();
   });
 };
-const check =(elem,arr)=>{
-
+const check = (e, elem, arr) => {
   arr.push(elem.innerHTML);
   console.log(arr);
 
-  if (
-    arr[0] === arr[1] &&
-    arr[0] === arr[2]
-  ) {
-    if (elem.innerHTML === "X"){
-      return WinnerScrn("player 1")
-    }else{
-      return WinnerScrn("player 2")
-
+  if (arr[0] === arr[1] && arr[0] === arr[2]) {
+    if (elem.innerHTML === "X") {
+      playerTimer(e , "stop")
+      return WinnerScrn("Player 1");
+    } else {
+      playerTimer(e, "stop")
+      return WinnerScrn("Player 2");
     }
-}
-}
+  }
+};
+
+let newTime;
+const players = [];
+let sec = 0;
+  const playerTimer = (e,order)=>{
+    console.log(sec);
+    timer.innerHTML = `00:${sec++}`
+     if(order ==="stop"){
+       clearInterval(newTime)
+       sec=0;
+       timer.innerHTML = `00:00`
+  
+     }
+     if (order === "reset") {
+      order = "start";
+      console.log("reset");
+      sec = 0;
+    }
+
+  if(sec>30){
+    if(players[0] = "button_1"){
+      players[0] = "button_2";
+      sec = 0;
+    }else{
+      players[0] = "button_1"
+      sec = 0;
+    }
+  }
+  if(sec){
+    if(sec>25){
+      timer.style.color="red"
+    }else{
+      timer.style.color="#EFEBE0"
+    }
+  }
+ 
+  }
+
 const render = (e) => {
-  const players = [];
   const vertical_1 = [];
   const vertical_2 = [];
   const vertical_3 = [];
@@ -74,85 +132,90 @@ const render = (e) => {
   const horizontal_3 = [];
   const diagonal_1 = [];
   const diagonal_1_1 = [];
-
-
+    // timerInterval(e)
   // players.push(e.target.innerText)
+
+
+  newTime = setInterval(playerTimer,1000)
+
   players.unshift(e.target.className);
   blocks.forEach((element, index) => {
     element.forEach((elem, i) => {
       elem.addEventListener("click", () => {
-        divTheme(e,elem);
+        divTheme(e, elem);
 
-        if(!elem.innerHTML){
-
-          if(players[0]==="button_2"){
+        if (!elem.innerHTML) {
+          playerTimer(e,"reset")
+          if (players[0] === "button_2") {
             players[0] = "button_1";
-            elem.innerHTML =  "O";
-          }else{
+            elem.innerHTML = "O";
+          } else {
             players[0] = "button_2";
-            elem.innerHTML =  "X";
+            elem.innerHTML = "X";
           }
-          
-          if (i === 0 ) {
-            console.log("i =",i);
-            check(elem,vertical_1)
+
+          if (i === 0) {
+            console.log("i =", i);
+            check(e, elem, vertical_1);
           }
           if (i === 1) {
-            check(elem,vertical_2)
+            check(e, elem, vertical_2);
           }
           if (i === 2) {
-            check(elem,vertical_3)
+            check(e, elem, vertical_3);
           }
           if (index === 0) {
-            console.log(blocks);
-            console.log("index =",index);
-            check(elem,horizontal_1)
+            // console.log(blocks);
+            // console.log("index =",index);
+            check(e, elem, horizontal_1);
           }
           if (index === 1) {
-            check(elem,horizontal_2)
+            check(e, elem, horizontal_2);
           }
           if (index === 2) {
-            check(elem,horizontal_3)
-
+            check(e, elem, horizontal_3);
           }
-          if ((index === 0 && i === 0) ||(index === 1 && i === 1) || (index === 2 && i === 2) ) {
-            console.log("i =",i  , " index= ",index );
+          if (
+            (index === 0 && i === 0) ||
+            (index === 1 && i === 1) ||
+            (index === 2 && i === 2)
+          ) {
+            // console.log("i =",i  , " index= ",index );
 
-            check(elem,diagonal_1)
-
-          }
-
-          if ((index === 0 && i === 2)||(index === 1 && i === 1)||(index === 2 && i === 0)) {
-            check(elem,diagonal_1_1)
-
+            check(e, elem, diagonal_1);
           }
 
+          if (
+            (index === 0 && i === 2) ||
+            (index === 1 && i === 1) ||
+            (index === 2 && i === 0)
+          ) {
+            check(e, elem, diagonal_1_1);
+          }
+        } else {
+          playerTimer(e , "stop")
+          drawsScrn("Its a draw ");
         }
-
-        
-        
       });
-
-
-
     });
-
   });
+
   // tie // return
 };
-const game= () =>{
-
+const game = () => {
   overRelay.style.display = "none";
+
   gameBox.style.display = "block";
   winDiv.style.display = "none";
+  drawDiv.style.display = "none";
 
-  if(gameBox.childNodes[0]){
+  if (gameBox.childNodes[0]) {
     gameBox.childNodes[0].remove();
-    blocks=[[],[],[]]
+    blocks = [[], [], []];
   }
-  const XODiv = document.createElement('div');
-  XODiv.id ="XODiv"
-  gameBox.append(XODiv)
+  const XODiv = document.createElement("div");
+  XODiv.id = "XODiv";
+  gameBox.append(XODiv);
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 4; j++) {
       const newDIv = document.createElement("div");
@@ -165,11 +228,13 @@ const game= () =>{
     }
   }
 
+  const row0_col0 = document.querySelector("#row0_col0");
+  row0_col0.append(timer);
   const button_1 = document.querySelector("#row3_col0");
   const button_2 = document.querySelector("#row3_col3");
 
   const playerOneButton = document.createElement("button");
-  playerOneButton.innerText = "Player 1 X";
+  playerOneButton.innerText = `Player 1 X`;
   playerOneButton.id = "button";
   playerOneButton.classList.add("button_1");
   playerOneButton.addEventListener("click", (e) => render(e));
@@ -182,9 +247,12 @@ const game= () =>{
 
   button_1.append(playerOneButton);
   button_2.append(playerTwoButton);
-}
+};
+start_button.addEventListener("click", game);
 
 
 
 
-start_button.addEventListener("click",game);
+
+
+
