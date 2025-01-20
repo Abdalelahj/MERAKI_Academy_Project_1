@@ -14,19 +14,33 @@ let turn = true;
 
 let blocks = [[], [], []];
 const divs = [[], [], [], []];
-let order="start" ;
+let order = "start";
+let newTime;
+const players = [];
+let sec = 0;
+let vertical_1 = [];
+let vertical_2 = [];
+let vertical_3 = [];
 
 const divTheme = (e, elem) => {
   elem.style.color = "#C197D2";
-  elem.style.border = "outset";
   elem.style.background = "rgb(0,0,0,0.8)";
 };
+const winTheme = (e, array) => {
+  array[1].style.color = "yellow";
+  array[3].style.color = "yellow";
+  array[5].style.color = "yellow";
+  array[1].style.transition = "all 1s";
+  array[1].style.transform = "rotate(360deg)";
+  array[3].style.transition = "all 1s";
+  array[3].style.transform = "rotate(360deg)";
+  array[5].style.transition = "all 1s";
+  array[5].style.transform = "rotate(360deg)";
+};
 
-// timerInterval(timer)
-
-//timerInterval()
 const drawsScrn = (message) => {
-  console.log("draw", message);
+
+  playerTimer("no", "stop");
   overRelay.style.display = "none";
   gameBox.style.display = "none";
   drawDiv.style.display = "block";
@@ -43,14 +57,12 @@ const drawsScrn = (message) => {
   drawDiv.append(tie);
   tie.append(playAgain);
   tie.append(text);
-
   playAgain.addEventListener("click", () => {
     game();
   });
 };
 
-const WinnerScrn = (message) => {
-  console.log("winner", message);
+const WinnerScrn = (message, e) => {
   overRelay.style.display = "none";
   gameBox.style.display = "none";
   winDiv.style.display = "block";
@@ -68,84 +80,87 @@ const WinnerScrn = (message) => {
   win.append(text);
 
   playAgain.addEventListener("click", () => {
-    game();
+    game(e);
   });
 };
+
 const check = (e, elem, arr) => {
   arr.push(elem.innerHTML);
-  console.log(arr);
+  arr.push(elem);
 
-  if (arr[0] === arr[1] && arr[0] === arr[2]) {
+  if (arr[0] === arr[2] && arr[0] === arr[4]) {
+    console.log(arr);
     if (elem.innerHTML === "X") {
-      playerTimer(e , "stop")
-      return WinnerScrn("Player 1");
+      playerTimer(e, "stop");
+      winTheme(e, arr);
+      setTimeout(() => {
+        WinnerScrn("Player 1", e);
+
+      }, 2000)
+      return
     } else {
-      playerTimer(e, "stop")
-      return WinnerScrn("Player 2");
+      playerTimer(e, "stop");
+      winTheme(e, arr);
+      setTimeout(() => {
+        WinnerScrn("Player 2", e);
+
+      }, 2000)
+      return
+    }
+  }
+  else if (winDiv.style.display !== "block" && vertical_1.length == 6 && vertical_2.length == 6 && vertical_3.length == 6) {
+    setTimeout(drawsScrn, 1000, "Its a draw ");
+  }
+};
+
+const playerTimer = (e, order) => {
+  timer.innerHTML = `00:${sec++}`;
+  if (order === "stop") {
+    clearInterval(newTime);
+    sec = 0;
+    timer.innerHTML = `00:00`;
+  }
+  if (order === "reset") {
+    order = "start";
+    sec = 0;
+  }
+
+  if (sec > 30) {
+    if ((players[0] = "button_1")) {
+      players[0] = "button_2";
+      sec = 0;
+    } else {
+      players[0] = "button_1";
+      sec = 0;
+    }
+  }
+  if (sec) {
+    if (sec > 25) {
+      timer.style.color = "red";
+    } else {
+      timer.style.color = "#EFEBE0";
     }
   }
 };
 
-let newTime;
-const players = [];
-let sec = 0;
-  const playerTimer = (e,order)=>{
-    console.log(sec);
-    timer.innerHTML = `00:${sec++}`
-     if(order ==="stop"){
-       clearInterval(newTime)
-       sec=0;
-       timer.innerHTML = `00:00`
-  
-     }
-     if (order === "reset") {
-      order = "start";
-      console.log("reset");
-      sec = 0;
-    }
-
-  if(sec>30){
-    if(players[0] = "button_1"){
-      players[0] = "button_2";
-      sec = 0;
-    }else{
-      players[0] = "button_1"
-      sec = 0;
-    }
-  }
-  if(sec){
-    if(sec>25){
-      timer.style.color="red"
-    }else{
-      timer.style.color="#EFEBE0"
-    }
-  }
- 
-  }
-
 const render = (e) => {
-  const vertical_1 = [];
-  const vertical_2 = [];
-  const vertical_3 = [];
+
   const horizontal_1 = [];
   const horizontal_2 = [];
   const horizontal_3 = [];
   const diagonal_1 = [];
   const diagonal_1_1 = [];
-    // timerInterval(e)
-  // players.push(e.target.innerText)
-
-
-  newTime = setInterval(playerTimer,1000)
-
   players.unshift(e.target.className);
+  e.target.disabled = true;
+  newTime = setInterval(playerTimer, 1000);
+  playerTimer(e, order);
+
   blocks.forEach((element, index) => {
     element.forEach((elem, i) => {
       elem.addEventListener("click", () => {
         divTheme(e, elem);
-
         if (!elem.innerHTML) {
-          playerTimer(e,"reset")
+          playerTimer(e, "reset");
           if (players[0] === "button_2") {
             players[0] = "button_1";
             elem.innerHTML = "O";
@@ -155,7 +170,6 @@ const render = (e) => {
           }
 
           if (i === 0) {
-            console.log("i =", i);
             check(e, elem, vertical_1);
           }
           if (i === 1) {
@@ -165,8 +179,6 @@ const render = (e) => {
             check(e, elem, vertical_3);
           }
           if (index === 0) {
-            // console.log(blocks);
-            // console.log("index =",index);
             check(e, elem, horizontal_1);
           }
           if (index === 1) {
@@ -180,8 +192,6 @@ const render = (e) => {
             (index === 1 && i === 1) ||
             (index === 2 && i === 2)
           ) {
-            // console.log("i =",i  , " index= ",index );
-
             check(e, elem, diagonal_1);
           }
 
@@ -192,26 +202,25 @@ const render = (e) => {
           ) {
             check(e, elem, diagonal_1_1);
           }
-        } else {
-          playerTimer(e , "stop")
-          drawsScrn("Its a draw ");
+
         }
       });
     });
+
   });
 
-  // tie // return
 };
 const game = () => {
   overRelay.style.display = "none";
-
   gameBox.style.display = "block";
   winDiv.style.display = "none";
   drawDiv.style.display = "none";
-
   if (gameBox.childNodes[0]) {
     gameBox.childNodes[0].remove();
     blocks = [[], [], []];
+    vertical_1 = []
+    vertical_2 = []
+    vertical_3 = []
   }
   const XODiv = document.createElement("div");
   XODiv.id = "XODiv";
@@ -230,6 +239,7 @@ const game = () => {
 
   const row0_col0 = document.querySelector("#row0_col0");
   row0_col0.append(timer);
+
   const button_1 = document.querySelector("#row3_col0");
   const button_2 = document.querySelector("#row3_col3");
 
@@ -237,22 +247,15 @@ const game = () => {
   playerOneButton.innerText = `Player 1 X`;
   playerOneButton.id = "button";
   playerOneButton.classList.add("button_1");
-  playerOneButton.addEventListener("click", (e) => render(e));
+  playerOneButton.addEventListener("click", render);
 
   const playerTwoButton = document.createElement("button");
   playerTwoButton.innerText = "Player 2 O";
   playerTwoButton.id = "button";
   playerTwoButton.classList.add("button_2");
-  playerTwoButton.addEventListener("click", (e) => render(e));
+  playerTwoButton.addEventListener("click", render);
 
   button_1.append(playerOneButton);
   button_2.append(playerTwoButton);
 };
 start_button.addEventListener("click", game);
-
-
-
-
-
-
-
